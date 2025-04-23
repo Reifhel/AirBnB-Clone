@@ -1,19 +1,23 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div className="shadow-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-4">
-        <div className="flex items-center">
+    <header className="shadow-md">
+      <div className="px4 mx-auto flex max-w-7xl items-center justify-between py-4 sm:px-8">
+        <Link to="/" className="flex items-center">
           <img
             className="h-10"
             src="https://brandlogos.net/wp-content/uploads/2022/07/airbnb-logo_brandlogos.net_vb6uh.png"
             alt="logo airbnb"
           />
           <p className="text-primary-400 text-2xl font-bold">airbnb</p>
-        </div>
+        </Link>
 
-        <div className="flex items-center rounded-full border border-gray-300 py-2 pr-4 pl-6 shadow-md">
+        <Link
+          to="/"
+          className="hidden items-center rounded-full border border-gray-300 py-2 pr-4 pl-6 shadow-md lg:flex"
+        >
           <p className="border-r border-r-gray-300 pr-4">Qualquer lugar</p>
           <p className="border-r border-r-gray-300 px-4">Qualquer Semana</p>
           <p className="px-4">Hóspedes</p>
@@ -34,9 +38,12 @@ const Header = () => {
               />
             </svg>
           </div>
-        </div>
+        </Link>
 
-        <div className="flex items-center gap-2 rounded-full border border-gray-300 py-2 pr-4 pl-6 shadow-md">
+        <Link
+          to="/login"
+          className="flex items-center gap-2 rounded-full border border-gray-300 py-2 pr-4 pl-6 shadow-md"
+        >
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -67,10 +74,10 @@ const Header = () => {
             </svg>
           </div>
 
-          <p>Nome</p>
-        </div>
+          <p className="max-w-32 truncate sm:max-w-none">Nome</p>
+        </Link>
       </div>
-    </div>
+    </header>
   );
 };
 
