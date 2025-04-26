@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useUserContext } from "../contexts/UserContext";
 
-const AccProfile = ({ user, setUser }) => {
-  //if (!user) return <></>;
+const AccProfile = () => {
+  const { user, setUser } = useUserContext();
   const [redirect, setRedirect] = useState(false);
+
   const handleLogout = async () => {
     try {
       const { data } = await axios.post("/users/logout");
@@ -18,7 +20,7 @@ const AccProfile = ({ user, setUser }) => {
   };
 
   if (redirect) return <Navigate to="/" />;
-
+  //if (!user) return <></>;
   return (
     <div className="flex flex-col gap-4">
       <p>
