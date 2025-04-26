@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
+import Account from "./pages/Account";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/register";
@@ -34,6 +35,10 @@ function App() {
         <Route
           path="/register"
           element={<Register user={user} setUser={setUser} />}
+        />
+        <Route
+          path="/account/:subpage?"
+          element={<Account user={user} setUser={setUser} />}
         />
       </Routes>
     </BrowserRouter>
