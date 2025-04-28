@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
+import AccPlaces from "../components/AccPlaces";
 import AccProfile from "../components/AccProfile";
 
 const Account = () => {
@@ -12,6 +13,8 @@ const Account = () => {
 
     return finalClass;
   };
+
+  if (!subpage) return <Navigate to={"/account/profile"} />;
 
   return (
     <section className="p-8">
@@ -29,6 +32,7 @@ const Account = () => {
         </div>
 
         {subpage === "profile" && <AccProfile />}
+        {subpage === "places" && <AccPlaces />}
       </div>
     </section>
   );
