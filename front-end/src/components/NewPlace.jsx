@@ -5,7 +5,7 @@ import Perks from "./Perks";
 const NewPlace = () => {
   const [title, setTitle] = useState("");
   const [city, setCity] = useState("");
-  const [photoLink, setPhotoLink] = useState("");
+  const [photos, setPhotos] = useState("");
   const [description, setDescription] = useState("");
   const [extras, setExtras] = useState("");
   const [price, setPrice] = useState("");
@@ -15,6 +15,10 @@ const NewPlace = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // const newPlace = await axios.post('/places', {
+
+    // })
   };
 
   return (
@@ -60,8 +64,8 @@ const NewPlace = () => {
             id="photoLink"
             placeholder="Adicione uma foto por seu link"
             className="grow rounded-full border border-gray-300 px-4 py-2"
-            value={photoLink}
-            onChange={(e) => setPhotoLink(e.target.value)}
+            value={photos}
+            onChange={(e) => setPhotos(e.target.value)}
           />
           <button className="cursor-pointer rounded-full border border-gray-300 bg-gray-100 px-4 py-2 transition hover:bg-gray-200">
             Enviar Foto

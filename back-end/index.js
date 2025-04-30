@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import "dotenv/config";
 import express from "express";
+import PlacesRoutes from "./domains/places/routes.js";
 import UserRoutes from "./domains/users/routes.js";
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(
   })
 );
 app.use("/users", UserRoutes);
+app.use("/places", PlacesRoutes);
 
 app.listen(PORT, () => {
   console.log(`Servidor on na porta ${PORT}`);
