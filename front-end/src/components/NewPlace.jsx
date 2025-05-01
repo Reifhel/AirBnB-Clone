@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-import UploadIcon from "./Icons/UploadIcon";
 import Perks from "./Perks";
+import PhotoUploader from "./PhotoUploader";
 
 const NewPlace = () => {
   const [title, setTitle] = useState("");
   const [city, setCity] = useState("");
+  const [photoLink, setPhotoLink] = useState("");
   const [photos, setPhotos] = useState([]);
   const [description, setDescription] = useState("");
   const [perks, setPerks] = useState([]);
@@ -89,35 +90,7 @@ const NewPlace = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-1">
-        <label htmlFor="photoLink" className="ml-2 text-2xl font-bold">
-          {" "}
-          Fotos{" "}
-        </label>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            id="photoLink"
-            placeholder="Adicione uma foto por seu link"
-            className="grow rounded-full border border-gray-300 px-4 py-2"
-            value={photos}
-            onChange={(e) => setPhotos(e.target.value)}
-          />
-          <button className="cursor-pointer rounded-full border border-gray-300 bg-gray-100 px-4 py-2 transition hover:bg-gray-200">
-            Enviar Foto
-          </button>
-        </div>
-
-        <div className="mt-2 grid grid-cols-5 gap-4">
-          <label
-            htmlFor="file"
-            className="flex aspect-square cursor-pointer items-center justify-center gap-2 border border-gray-300 bg-gray-100 px-4 py-2 hover:bg-gray-200"
-          >
-            <input type="file" id="file" className="hidden"></input>
-            <UploadIcon className={"size-6"} /> Fazer Upload
-          </label>
-        </div>
-      </div>
+      <PhotoUploader {...{ photoLink, setPhotoLink, setPhotos, photos }} />
 
       <div className="flex flex-col gap-1">
         <label htmlFor="description" className="ml-2 text-2xl font-bold">
