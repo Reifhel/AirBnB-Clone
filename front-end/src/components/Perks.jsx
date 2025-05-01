@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import RadioIcon from "./Icons/RadioIcon";
 import ShieldCheckIcon from "./Icons/ShieldCheckIcon";
 import SmileIcon from "./Icons/SmileIcon";
@@ -7,9 +7,7 @@ import TvIcon from "./Icons/TvIcon";
 import WifiIcon from "./Icons/WifiIcon";
 import PerkItem from "./PerkItem";
 
-const Perks = () => {
-  const [perks, setPerks] = useState([]);
-
+const Perks = ({ perks, setPerks }) => {
   const PERKS_DATA = [
     {
       name: "wifi",

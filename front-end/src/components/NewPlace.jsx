@@ -1,25 +1,61 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import UploadIcon from "./Icons/UploadIcon";
 import Perks from "./Perks";
 
 const NewPlace = () => {
   const [title, setTitle] = useState("");
   const [city, setCity] = useState("");
-  const [photos, setPhotos] = useState("");
+  const [photos, setPhotos] = useState([]);
   const [description, setDescription] = useState("");
+  const [perks, setPerks] = useState([]);
   const [extras, setExtras] = useState("");
   const [price, setPrice] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const newPlace = await axios.post('/places', {
-
-    // })
+    if (
+      title &&
+      city &&
+      // photos.length > 0 &&
+      description &&
+      price &&
+      checkIn &&
+      checkOut &&
+      guests
+    ) {
+      try {
+        console.log("Todos estão preenchidos");
+        const newPlace = await axios.post("/places", {
+          title,
+          city,
+          photos,
+          description,
+          perks,
+          extras,
+          price,
+          checkIn,
+          checkOut,
+          guests,
+        });
+        console.log(newPlace);
+        setRedirect(true);
+      } catch (error) {
+        console.error(JSON.stringify(error));
+        alert("Erro ao tentar gerar um novo lugar!");
+      }
+    } else {
+      alert("Campos obrigatórios estão faltantes");
+    }
   };
+
+  if (redirect) return <Navigate to="/account/places" />;
 
   return (
     <form onSubmit={handleSubmit} className="flex w-full flex-col gap-6 px-8">
@@ -102,7 +138,7 @@ const NewPlace = () => {
           {" "}
           Comodidades{" "}
         </label>
-        <Perks />
+        <Perks perks={perks} setPerks={setPerks} />
       </div>
 
       <div className="flex flex-col gap-1">
