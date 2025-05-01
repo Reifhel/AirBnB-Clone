@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { connectDb } from "../../config/db.js";
+import { __dirname } from "../../server.js";
+import { downloadImage } from "../../utils/imageDownloader.js";
 import { JWTVerify } from "../../utils/jwt.js";
 import Place from "./model.js";
 
@@ -42,6 +44,12 @@ router.post("/", async (req, res) => {
     console.log(error);
     res.status(500).json(error);
   }
+});
+
+router.post("/upload/link", async (req, res) => {
+  const { link } = req.body;
+
+  await downloadImage(link, `${__dirname}/tmp/`);
 });
 
 export default router;
