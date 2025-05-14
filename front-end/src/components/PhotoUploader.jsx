@@ -7,15 +7,42 @@ const PhotoUploader = ({ photoLink, setPhotoLink, setPhotos, photos }) => {
     e.preventDefault();
 
     if (photoLink) {
-      const { data: filename } = await axios.post("/places/upload/link", {
-        link: photoLink,
-      });
+      try {
+        const { data: filename } = await axios.post("/places/upload/link", {
+          link: photoLink,
+        });
 
-      setPhotos((prevValue) => [...prevValue, filename]);
-      console.log("imagem enviada");
+        setPhotos((prevValue) => [...prevValue, filename]);
+        console.log("imagem enviada");
+      } catch (error) {
+        alert(
+          "Deu erro ao tentar dar upload na foto por link",
+          JSON.stringify(error),
+        );
+      }
     } else {
       alert("Não link a ser enviado!");
     }
+  };
+
+  const uploadPhoto = async (e) => {
+    e.preventDefault();
+    const { files } = e.target;
+    const formData = new FormData();
+    const filesArray = [...files];
+
+    filesArray.forEach((file) => formData.append("files", file));
+    try {
+      const { data: urlArray } = await axios.post("places/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      setPhotos((prevValue) => [...prevValue, ...urlArray]);
+    } catch (error) {
+      alert("Deu erro ao tentar dar upload na foto", JSON.stringify(error));
+    }
+    // console.log(filesArray);
+    // console.log(formData);
   };
 
   return (
@@ -46,7 +73,7 @@ const PhotoUploader = ({ photoLink, setPhotoLink, setPhotos, photos }) => {
           <img
             key={photo}
             className="aspect-square rounded-2xl object-cover"
-            src={`${axios.defaults.baseURL}/tmp/${photo}`}
+            src={`${photo}`}
             alt="Imagens do lugar"
           />
         ))}
@@ -55,7 +82,13 @@ const PhotoUploader = ({ photoLink, setPhotoLink, setPhotos, photos }) => {
           htmlFor="file"
           className="flex aspect-square cursor-pointer items-center justify-center gap-2 border border-gray-300 bg-gray-100 px-4 py-2 hover:bg-gray-200"
         >
-          <input type="file" id="file" className="hidden"></input>
+          <input
+            type="file"
+            id="file"
+            className="hidden"
+            multiple
+            onChange={uploadPhoto}
+          ></input>
           <UploadIcon className={"size-6"} /> Fazer Upload
         </label>
       </div>
