@@ -57,6 +57,7 @@ const Perks = ({ perks, setPerks }) => {
           name={perk.name}
           icon={perk.icon}
           text={perk.text}
+          checkedValue={perks.includes(perk.name)}
           handleClick={handleClick}
         />
       ))}

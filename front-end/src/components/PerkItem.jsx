@@ -1,6 +1,6 @@
 import React from "react";
 
-const PerkItem = ({ name, icon, text, handleClick }) => {
+const PerkItem = ({ name, icon, text, handleClick, checkedValue }) => {
   return (
     <div>
       <label
@@ -11,6 +11,7 @@ const PerkItem = ({ name, icon, text, handleClick }) => {
           type="checkbox"
           id={name}
           value={name}
+          checked={checkedValue}
           onChange={(e) => handleClick(e.target)}
         />
         {icon} {text}

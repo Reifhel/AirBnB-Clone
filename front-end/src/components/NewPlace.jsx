@@ -1,10 +1,12 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import Perks from "./Perks";
 import PhotoUploader from "./PhotoUploader";
 
 const NewPlace = () => {
+  const { id } = useParams();
+
   const [title, setTitle] = useState("");
   const [city, setCity] = useState("");
   const [photoLink, setPhotoLink] = useState("");
@@ -18,38 +20,80 @@ const NewPlace = () => {
   const [guests, setGuests] = useState("");
   const [redirect, setRedirect] = useState(false);
 
+  useEffect(() => {
+    if (id) {
+      const axiosGet = async () => {
+        const { data } = await axios.get(`/places/${id}`);
+        setTitle(data.title);
+        setCity(data.city);
+        setPhotos(data.photos);
+        setDescription(data.description);
+        setPerks(data.perks);
+        setExtras(data.extras);
+        setPrice(data.price);
+        setCheckIn(data.checkIn);
+        setCheckOut(data.checkOut);
+        setGuests(data.guests);
+      };
+
+      axiosGet();
+    }
+  }, [id]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (
       title &&
       city &&
-      // photos.length > 0 &&
+      photos.length > 0 &&
       description &&
       price &&
       checkIn &&
       checkOut &&
       guests
     ) {
-      try {
-        console.log("Todos estão preenchidos");
-        const newPlace = await axios.post("/places", {
-          title,
-          city,
-          photos,
-          description,
-          perks,
-          extras,
-          price,
-          checkIn,
-          checkOut,
-          guests,
-        });
-        console.log(newPlace);
-        setRedirect(true);
-      } catch (error) {
-        console.error(JSON.stringify(error));
-        alert("Erro ao tentar gerar um novo lugar!");
+      if (id) {
+        try {
+          const modifyPlace = await axios.put(`/places/${id}`, {
+            title,
+            city,
+            photos,
+            description,
+            perks,
+            extras,
+            price,
+            checkIn,
+            checkOut,
+            guests,
+          });
+          console.log(modifyPlace);
+          setRedirect(true);
+        } catch (error) {
+          console.error(JSON.stringify(error));
+          alert("Erro ao tentar modificar o lugar!");
+        }
+      } else {
+        try {
+          const newPlace = await axios.post("/places", {
+            title,
+            city,
+            photos,
+            description,
+            perks,
+            extras,
+            price,
+            checkIn,
+            checkOut,
+            guests,
+          });
+
+          console.log(newPlace);
+          setRedirect(true);
+        } catch (error) {
+          console.error(JSON.stringify(error));
+          alert("Erro ao tentar gerar um novo lugar!");
+        }
       }
     } else {
       alert("Campos obrigatórios estão faltantes");

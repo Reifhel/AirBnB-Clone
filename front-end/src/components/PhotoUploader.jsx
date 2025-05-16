@@ -1,5 +1,7 @@
 import axios from "axios";
 import React from "react";
+import StarIcon from "./Icons/StarIcon";
+import TrashIcon from "./Icons/TrashIcon";
 import UploadIcon from "./Icons/UploadIcon";
 
 const PhotoUploader = ({ photoLink, setPhotoLink, setPhotos, photos }) => {
@@ -45,6 +47,18 @@ const PhotoUploader = ({ photoLink, setPhotoLink, setPhotos, photos }) => {
     // console.log(formData);
   };
 
+  const deletePhoto = (fileURL) => {
+    const newPhotos = photos.filter((photo) => photo != fileURL);
+
+    setPhotos(newPhotos);
+  };
+
+  const promotePhoto = (fileURL) => {
+    const newPhotos = [fileURL, ...photos.filter((photo) => photo != fileURL)];
+
+    setPhotos(newPhotos);
+  };
+
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor="photoLink" className="ml-2 text-2xl font-bold">
@@ -70,12 +84,28 @@ const PhotoUploader = ({ photoLink, setPhotoLink, setPhotos, photos }) => {
 
       <div className="mt-2 grid grid-cols-5 gap-4">
         {photos.map((photo) => (
-          <img
-            key={photo}
-            className="aspect-square rounded-2xl object-cover"
-            src={`${photo}`}
-            alt="Imagens do lugar"
-          />
+          <div className="relative" key={photo}>
+            <img
+              className="aspect-square rounded-2xl object-cover"
+              src={`${photo}`}
+              alt="Imagens do lugar"
+            />
+
+            <div className="absolute right-2 bottom-2 flex gap-1">
+              <div
+                className="hover:bg-primary-400 cursor-pointer rounded-full bg-gray-100 p-1 opacity-75 transition hover:text-white"
+                onClick={() => promotePhoto(photo)}
+              >
+                <StarIcon className={"size-6"} />
+              </div>
+              <div
+                className="hover:bg-primary-400 cursor-pointer rounded-full bg-gray-100 p-1 opacity-75 transition hover:text-white"
+                onClick={() => deletePhoto(photo)}
+              >
+                <TrashIcon className={"size-6"} />
+              </div>
+            </div>
+          </div>
         ))}
 
         <label
