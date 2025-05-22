@@ -10,7 +10,7 @@ const PerkItem = ({ name, icon, text, handleClick, checkedValue }) => {
         <input
           type="checkbox"
           id={name}
-          value={name}
+          value={text}
           checked={checkedValue}
           onChange={(e) => handleClick(e.target)}
         />
