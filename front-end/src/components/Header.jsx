@@ -16,7 +16,7 @@ const Header = () => {
             src="https://brandlogos.net/wp-content/uploads/2022/07/airbnb-logo_brandlogos.net_vb6uh.png"
             alt="logo airbnb"
           />
-          <p className="text-primary-400 text-2xl font-bold">airbnb</p>
+          <p className="text-primary-400 text-2xl font-bold">CloneBnB</p>
         </Link>
 
         <Link

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
+import AccBookings from "../components/AccBookings";
 import AccPlaces from "../components/AccPlaces";
 import AccProfile from "../components/AccProfile";
 import { useUserContext } from "../contexts/UserContext";
@@ -26,7 +27,7 @@ const Account = () => {
           <Link to="/account/profile" className={buttonClass("profile")}>
             Perfil
           </Link>
-          <Link to="/account/booking" className={buttonClass("bookings")}>
+          <Link to="/account/bookings" className={buttonClass("bookings")}>
             Reservas
           </Link>
           <Link to="/account/places" className={buttonClass("places")}>
@@ -36,6 +37,7 @@ const Account = () => {
 
         {subpage === "profile" && <AccProfile />}
         {subpage === "places" && <AccPlaces />}
+        {subpage === "bookings" && <AccBookings />}
       </div>
     </section>
   );
