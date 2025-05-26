@@ -1,18 +1,15 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import "dotenv/config";
 import express from "express";
-import { dirname } from "node:path";
+import path, { dirname } from "node:path";
 import { fileURLToPath } from "url";
 import routes from "./routes/index.js";
 
 export const app = express();
-const { PORT } = process.env;
 
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
 
-// Only getting the json request
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -22,4 +19,9 @@ app.use(
   })
 );
 app.use("/tmp", express.static(__dirname + "/tmp"));
-app.use(routes);
+app.use(express.static(path.join(__dirname, "../front-end/dist")));
+app.use("/api", routes);
+
+app.get(/(.*)/, (req, res) => {
+  res.sendFile(path.join(__dirname, "../front-end/dist/index.html"));
+});

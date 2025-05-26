@@ -28,24 +28,11 @@ const Place = () => {
   };
 
   useEffect(() => {
-    if (id) {
-      const axiosGet = async () => {
-        const { data } = await axios.get(`/places/${id}`);
-        setPlace(data);
-      };
-
-      axiosGet();
-    }
-  }, [id]);
-
-  useEffect(() => {
     if (place) {
       const axiosGet = async () => {
         const { data } = await axios.get("/bookings/owner");
         setBooking(
           data.filter((booking) => {
-            console.log(booking.place._id, place._id);
-
             return booking.place._id === place._id;
           })[0],
         );
@@ -54,6 +41,18 @@ const Place = () => {
       axiosGet();
     }
   }, [place]);
+
+  useEffect(() => {
+    if (id) {
+      const axiosGet = async () => {
+        const { data } = await axios.get(`/places/${id}`);
+
+        setPlace(data);
+      };
+
+      axiosGet();
+    }
+  }, [id]);
 
   useEffect(() => {
     overlay

@@ -14,7 +14,6 @@ const Login = () => {
 
     if (email && password) {
       try {
-        console.log(`Enviado ${email} e ${password}`);
         const { data: userDoc } = await axios.post("/users/login", {
           email,
           password,
