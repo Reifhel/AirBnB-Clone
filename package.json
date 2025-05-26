@@ -1,0 +1,14 @@
+{
+  "name": "airbnb-clone",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000A\u0000i\u0000r\u0000B\u0000n\u0000B\u0000-\u0000C\u0000l\u0000o\u0000n\u0000e\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run start --prefix back-end",
+    "build": "npm run install --prefix back-end && npm run install --prefix front-end && npm run build --prefix front-end"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/Reifhel/AirBnB-Clone#readme"
+}
